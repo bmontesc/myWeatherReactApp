@@ -1,12 +1,10 @@
 import React from 'react';
 import './App.css';
-import CityWeather from './components/CityWeather/CityWeather';
 import AppBar from '@mui/material/AppBar';
 import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
-import Grid from '@mui/material/Grid';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import CityWeatherGrid from './components/CityWeatherGrid/CityWeatherGrid';
 
 const data = [
   {
@@ -46,22 +44,7 @@ function App() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <div className="header">
-        
-      </div>
-      <Container sx={{ py: 8 }} maxWidth="md">
-          <Grid container spacing={4}>
-              <Grid item xs={12} sm={6} md={4}>
-              <CityWeather
-                cityName="San Francisco"
-                currentTemp="68"
-                lowTemp="58"
-                highTemp="73"
-                humidity="23"
-              />
-              </Grid>
-          </Grid>
-        </Container>
+      <CityWeatherGrid />
     </div>
   );
 }
