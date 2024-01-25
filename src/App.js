@@ -5,33 +5,10 @@ import ThunderstormIcon from '@mui/icons-material/Thunderstorm';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CityWeatherGrid from './components/CityWeatherGrid/CityWeatherGrid';
-
-const data = [
-  {
-    city: "San Francisco",
-    current: 68,
-    conditions: "Cloudy",
-    low: 45,
-    high: 70,
-    humidity: 23
-  },
-  {
-    city: "New York",
-    current: 58,
-    conditions: "Sunny",
-    low: 50,
-    high: 62,
-    humidity: 20
-  },
-  {
-    city: "Chicago",
-    current: 72,
-    conditions: "Sunny",
-    low: 52,
-    high: 75,
-    humidity: 31
-  }
-]
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
 
 function App() {
   return (
