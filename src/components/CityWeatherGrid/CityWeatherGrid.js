@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCity } from '../../redux/weatherDataSlice';
 import CityWeather from '../CityWeather/CityWeather';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
-import { getWeatherForCity } from '../../api/OpenWeatherMapAPI';
-import { useSelector } from "react-redux"
+import { getWeatherForCity} from '../../api/OpenWeatherMapAPI';
 
 const CityWeatherGrid = () => {
     
@@ -16,7 +15,6 @@ const CityWeatherGrid = () => {
     const fetchData = async () => {
         try {
             const promises = initialCities.map(city => getWeatherForCity(city));
-            // const weatherData = await getWeatherForCity('Ohio');
             const results = await Promise.all(promises);
             results.forEach(result => dispatch(addCity(result)))
             setDataLoaded(true);
@@ -30,10 +28,9 @@ const CityWeatherGrid = () => {
     },[]);
 
     const weatherData = useSelector((state) => state.weatherData);
-    console.log("Datos del estado", weatherData.cities)
 
     if (!dataLoaded) {
-        return <div>Cargando...</div>;
+        return <div>Loading...</div>;
     }
     
     return (

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
@@ -12,7 +11,7 @@ root.render(
   // <React.StrictMode></React.StrictMode>  --> Eliminado porque llama dos veces al useEffect
   <>
     <Provider store={store}>
-      <App />
+        <App />
     </Provider>
   </>
 );
