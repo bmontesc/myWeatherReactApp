@@ -4,8 +4,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 import { addCity } from '../../redux/weatherDataSlice';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getWeatherForCity } from '../../api/OpenWeatherMapAPI';
+import { Link } from 'react-router-dom';
 
 const theme = createTheme({
     palette: {
@@ -70,10 +71,19 @@ export default function Header() {
     const [search, setSearch ] = useState("");
     const dispatch = useDispatch();
 
+    const weatherData = useSelector((state) => state.weatherData);
+
     const fetchData = async () => {
         try {
-            const weatherData = await getWeatherForCity(search);
-            dispatch(addCity(weatherData));
+            const newCity = await getWeatherForCity(search);
+            console.log(newCity)
+            console.log(weatherData)
+            if (weatherData.cities.some(city => city.city === newCity.city)) {
+                setSearch("")
+            } else {
+                dispatch(addCity(newCity));
+                setSearch("")
+            }
         } catch (error) {
           console.error('Error al obtener el clima:', error);
         }
@@ -84,18 +94,19 @@ export default function Header() {
             <Box sx={{ flexGrow: 1 }}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography
-                            variant="h6"
-                            noWrap
-                            component="div"
-                            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-                            My Weather App
-                        </Typography>
+                            <Typography
+                                variant="h6"
+                                noWrap
+                                component="div"
+                                sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
+                                <Link to={`/`}>My Weather App</Link>
+                            </Typography>
                         <Search onChange={(e) => {setSearch(e.target.value)}}>
                             <SearchIconWrapper>
                             <SearchIcon />
                             </SearchIconWrapper>
                             <StyledInputBase
+                            value={search}
                             placeholder="Search city…"
                             inputProps={{ 'aria-label': 'search' }}
                             />

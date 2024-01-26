@@ -28,7 +28,7 @@ function useConditionUI() {
       
             case 'Drizzle':
             case 'Rain':
-                conditionUI.cardIcon = (<span class="material-symbols-rounded" style={{fontSize: 150}}>rainy</span>)
+                conditionUI.cardIcon = (<span class="material-symbols-rounded" style={{fontSize: 180}}>rainy</span>)
                 conditionUI.cardColor = blueGrey;
                 return conditionUI;
         

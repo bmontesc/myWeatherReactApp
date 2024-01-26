@@ -9,8 +9,11 @@ export const weatherForecastSlice = createSlice ({
         addCityForecast: (state, action) => {
             state.push(action.payload);
         },
+        clearData: () => {
+            return initialState;
+        }
     },
 });
 
-export const { addCityForecast } = weatherForecastSlice.actions;
+export const { addCityForecast, clearData } = weatherForecastSlice.actions;
 export default weatherForecastSlice.reducer;

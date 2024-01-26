@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom';
 
 const CityWeather = props => {
   
-  const { city, currentTemp, condition, id, minTemp, maxTemp } = props;
+  const { city, currentTemp, condition, id, minTemp, maxTemp, onDelete} = props;
   const [ conditionUI, setConditionUI ] = useConditionUI();
   setConditionUI(condition);
 
@@ -43,7 +43,7 @@ const CityWeather = props => {
                 </CardContent>
                 <CardActions sx={{ display: 'flex', flexDirection: 'row' , justifyContent: 'space-around'}}>
                     <Button size="small" sx={{ background: conditionUI.cardColor[700], color: conditionUI.cardColor[50] }}><Link to={`/forecast/${id}`}>View</Link></Button>
-                    <Button size="small" sx={{ background: red[500], color: conditionUI.cardColor[50] }}>Delete</Button>
+                    <Button size="small" sx={{ background: red[500], color: conditionUI.cardColor[50] }} onClick={() => onDelete(id)}>Delete</Button>
                 </CardActions>
             </Card>
         </Grid>

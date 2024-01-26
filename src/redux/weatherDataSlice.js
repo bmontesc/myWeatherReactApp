@@ -11,8 +11,12 @@ export const weatherDataSlice = createSlice ({
         addCity: (state, action) => {
             state.cities.push(action.payload);
         },
+        removeCity: (state, action) => {
+            const id = action.payload;
+            state.cities = state.cities.filter(city => city.id != id);
+        }
     },
 });
 
-export const { addCity } = weatherDataSlice.actions;
+export const { addCity, removeCity } = weatherDataSlice.actions;
 export default weatherDataSlice.reducer;

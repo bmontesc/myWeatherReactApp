@@ -42,6 +42,7 @@ export const getWeatherDetailForCity = (coord) => {
             return response.json();
       })
       .then((data) => {
+            console.log(data)
             const { list } = data;
             const reducedList = list.map((item) => ({dt: item.dt, minTemp: item.main.temp_min, maxTemp: item.main.temp_max, weatherCondition: item.weather[0].main}));
 
@@ -57,17 +58,17 @@ export const getWeatherDetailForCity = (coord) => {
                 
                         simplifiedList.dt = new Date(reducedList[i].dt * 1000);
                         simplifiedList.weatherCondition = reducedList[i].weatherCondition;
-                        simplifiedList.minTemp = reducedList[i].minTemp;
-                        simplifiedList.maxTemp = reducedList[i].maxTemp;
+                        simplifiedList.minTemp = ((reducedList[i].minTemp - 273.15) * 9 / 5 + 32).toFixed(2);
+                        simplifiedList.maxTemp = ((reducedList[i].maxTemp - 273.15) * 9 / 5 + 32).toFixed(2);
                 
                         weatherForecast.push(simplifiedList);
 
                     } else {
-                        if (reducedList[i].maxTemp > weatherForecast[index].maxTemp) {
-                            weatherForecast[index].maxTemp = reducedList[i].maxTemp;
+                        if (((reducedList[i].maxTemp - 273.15) * 9 / 5 + 32) > weatherForecast[index].maxTemp) {
+                            weatherForecast[index].maxTemp = ((reducedList[i].maxTemp - 273.15) * 9 / 5 + 32).toFixed(2);
                         }
-                        if (reducedList[i].minTemp < weatherForecast[index].minTemp) {
-                            weatherForecast[index].minTemp = reducedList[i].minTemp;
+                        if (((reducedList[i].minTemp - 273.15) * 9 / 5 + 32) < weatherForecast[index].minTemp) {
+                            weatherForecast[index].minTemp = ((reducedList[i].minTemp - 273.15) * 9 / 5 + 32).toFixed(2);
                         }
                     }
                 }
@@ -79,38 +80,3 @@ export const getWeatherDetailForCity = (coord) => {
           throw error;
         });
   };
-
-
-
-//   getInfo(data: IWeatherForecast): ISimplifiedWeatherForecast {
-//     const weatherForecast = {} as ISimplifiedWeatherForecast;
-//     weatherForecast.id = data.city.id;
-//     weatherForecast.name = data.city.name;
-//     weatherForecast.list = [];
-//     const currentDate = new Date();
-//     const dayList: DayList[] = data.list;
-//     for (let i = 0; i < dayList.length; i++) {
-//       const intervalDate = new Date(dayList[i].dt * 1000);
-//       const index = intervalDate.getDate() - currentDate.getDate() - 1;
-//       if (index >= 0) {
-//         if (weatherForecast.list[index] === undefined) {
-//           const simplifiedList: DaySimplifiedList = { dt: new Date(), weather: [], temp_max: 0, temp_min: 0};
-
-//           simplifiedList.dt = new Date(dayList[i].dt * 1000);
-//           simplifiedList.weather.push(dayList[i].weather[0]);
-//           simplifiedList.temp_max = dayList[i].main.temp_max;
-//           simplifiedList.temp_min = dayList[i].main.temp_min;
-
-//           weatherForecast.list.push(simplifiedList);
-//         } else {
-//           if (dayList[i].main.temp_max > weatherForecast.list[index].temp_max) {
-//             weatherForecast.list[index].temp_max = dayList[i].main.temp_max;
-//           }
-//           if (dayList[i].main.temp_min < weatherForecast.list[index].temp_min) {
-//             weatherForecast.list[index].temp_min = dayList[i].main.temp_min;
-//           }
-//         }
-//       }
-//     }
-//     return weatherForecast;
-//   }
